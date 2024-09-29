@@ -1,7 +1,8 @@
-const http = require('./httpInstance.js')
+const http = require("./httpInstance.js");
+const { MS_TOKEN, A_BOGUS,UUID } = require('../ENV.js')
 class Api {
   constructor() {
-    this.http = http
+    this.http = http;
   }
 
   /**
@@ -12,7 +13,7 @@ class Api {
    * }
    */
   getUser() {
-    return this.http.get('/user_api/v1/user/get')
+    return this.http.get("/user_api/v1/user/get");
   }
 
   /**
@@ -21,7 +22,7 @@ class Api {
    * Boolean 是否签到
    */
   getTodayStatus() {
-    return this.http.get('/growth_api/v2/get_today_status')
+    return this.http.get("/growth_api/v2/get_today_status");
   }
 
   /**
@@ -32,7 +33,7 @@ class Api {
    * }
    */
   checkIn() {
-    return this.http.post(`/growth_api/v1/check_in?aid=`)
+    return this.http.post(`/growth_api/v1/check_in?aid=`);
   }
 
   /**
@@ -44,7 +45,7 @@ class Api {
    * }
    */
   getCounts() {
-    return this.http.get('/growth_api/v1/get_counts')
+    return this.http.get("/growth_api/v1/get_counts");
   }
 
   /**
@@ -55,16 +56,25 @@ class Api {
    * }
    */
   getLotteryConfig() {
-    return this.http.get(`/growth_api/v1/lottery_config/get?aid=`)
+    return this.http.get(`/growth_api/v1/lottery_config/get?aid=2608&uuid=${UUID}&spider=0&msToken=${MS_TOKEN}&a_bogus=${A_BOGUS}`)
   }
-
+  /**
+   * @desc 抽奖
+   * @returns {Promise<*>}
+   * {
+   *   lottery_name: String 奖品名称
+   * }
+   */
+  drawLottery() {
+    return this.http.post("/growth_api/v1/lottery/draw");
+  }
   /**
    * @desc 当前矿石数
    * @returns {Promise<*>}
    * Number 矿石数量
    */
   getCurrentPoint() {
-    return this.http.get('/growth_api/v1/get_cur_point')
+    return this.http.get("/growth_api/v1/get_cur_point");
   }
 
   /**
@@ -75,8 +85,8 @@ class Api {
    * }
    */
   getLucky() {
-    return this.http.post('/growth_api/v1/lottery_lucky/my_lucky')
+    return this.http.post("/growth_api/v1/lottery_lucky/my_lucky");
   }
 }
 
-module.exports = Api
+module.exports = Api;

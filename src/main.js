@@ -63,7 +63,11 @@ const main = async () => {
 
   // 当前矿石数
   growth.sumPoint = await juejin.getCurrentPoint()
-
+  if (growth.freeCount > 0) {
+    const lottery = await juejin.drawLottery()
+    growth.freeDrawed = true
+    growth.lotteryName = lottery.lottery_name
+  }
   // 当前幸运值
   const luckyResult = await juejin.getLucky()
   growth.luckyValue = luckyResult.total_value
